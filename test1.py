@@ -73,23 +73,23 @@
 #     print (name,age,city,job)
 # person4('Jack',24,job='STUDENT')
 
-# #参数的顺序必须是必选参数，默认参数，可变参数，命名关键字参数，关键字参数
-# def f1(a,b,c=0,*args,**kw):
-#     print ('a=',a,'b=',b,'c=',c,'args=',args,'kw=',kw)
+#参数的顺序必须是必选参数，默认参数，可变参数，命名关键字参数，关键字参数
+def f1(a,b,c=0,*args,**kw):
+    print ('a=',a,'b=',b,'c=',c,'args=',args,'kw=',kw)
 
-# def f2(a,b,c=1,*,d,**kw):
-#     print ('a=',a,'b=',b,'c=',c,'d=',d,'kw=',kw)
+def f2(a,b,c=1,*,d,**kw):
+    print ('a=',a,'b=',b,'c=',c,'d=',d,'kw=',kw)
 
 
-# f1(1,2)
-# f1(1,2,c=3)
-# f1(1,2,3,'a','b','c',x=1,y=2,z=3)
-# f2(1,2,d=99,x=98,y=97,z=96)
+f1(1,2)
+f1(1,2,c=3)
+f1(1,2,3,'a','b','c',x=1,y=2,z=3)
+f2(1,2,d=99,x=98,y=97,z=96)
 
-# #传入tuple 和dict
-# args=(1,2,3,[4,5,6,7,8])
-# kw={'x':11,'y':22}
-# f1(*args,**kw)
+#传入tuple 和dict
+args=(1,2,3,[4,5,6,7,8])
+kw={'x':11,'y':22}
+f1(*args,**kw)
 
 # #多个参数的乘法
 # def product(x,*y):
@@ -293,45 +293,74 @@
 
 #__name私有属性
 
-class Animal:
-    def run(self):
-        print ('Animal is running')
+# class Animal:
+#     def run(self):
+#         print ('Animal is running')
 
-class Dog(Animal):
-    def run(self):
-        print ('dog is running')
-        #重写继承的方法
-    def eat(self):
-        print ('dog is eat')
+# class Dog(Animal):
+#     def run(self):
+#         print ('dog is running')
+#         #重写继承的方法
+#     def eat(self):
+#         print ('dog is eat')
 
-class Cat(Animal):
-    def run(self):
-        print ('cat is running')
-          #重写继承的方法
-    def eat(self):
-        print ('cat is eat')
-class Timer():
-    def run(self):
-        print ('dada')
-def run_twice(animal):
-    animal.run()
-    animal.run()
-d=Dog()
-run_twice(Dog())
-run_twice(Timer())#python是动态语言，只要有run方法，都能继承
-print  (isinstance(d,Dog)) #用isinstanceo判断类型
+# class Cat(Animal):
+#     def run(self):
+#         print ('cat is running')
+#           #重写继承的方法
+#     def eat(self):
+#         print ('cat is eat')
+# class Timer():
+#     def run(self):
+#         print ('dada')
+# def run_twice(animal):
+#     animal.run()
+#     animal.run()
+# d=Dog()
+# run_twice(Dog())
+# run_twice(Timer())#python是动态语言，只要有run方法，都能继承
+# print  (isinstance(d,Dog)) #用isinstanceo判断类型
 
-# 总是优先使用isinstance()判断类型，可以将指定类型及其子类“一网打尽”。
+# # 总是优先使用isinstance()判断类型，可以将指定类型及其子类“一网打尽”。
 
-print (dir(d))#获得一个对象的所有属性和方法
+# print (dir(d))#获得一个对象的所有属性和方法
 
-print (hasattr(d,'x'))#是否有x属性
-setattr(d,'x',100) #设置x属性
-setattr(d,'y',200)
-print (getattr(d,'x'))  #获取x属性
-print (getattr(d,'y',404))#获取y属性，若不存在返回404
-fn=getattr(d,'x')
-print (fn)  
+# print (hasattr(d,'x'))#是否有x属性
+# setattr(d,'x',100) #设置x属性
+# setattr(d,'y',200)
+# print (getattr(d,'x'))  #获取x属性
+# print (getattr(d,'y',404))#获取y属性，若不存在返回404
+# fn=getattr(d,'x')
+# print (fn)  
 
-sum=d.x+d.y
-print (sum)
+# sum=d.x+d.y
+# print (sum)
+
+class Dimon:
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+    def area(self):
+        pass
+class Circle(Dimon):
+    count=0
+    def __init__(self,r):
+        Dimon.__init__(self,r,0)
+        Circle.count+=1
+    def area(self):
+        return self.x*self.x*3.14
+    def __del__(self):
+        Circle.count-=1
+    def getcount(self):
+        print ('总数是',Circle.count)
+class Retangle(Dimon):
+    def __init__(self,w,h):
+        Dimon.__init__(self,w,h)
+    def area(self):
+        return self.x*self.y
+
+d1=Circle(2.0)
+d2=Circle(4.0)
+d1.__del__()
+print (d1.getcount())
+
